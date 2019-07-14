@@ -23,6 +23,8 @@ class spider:
             now = datetime.now()
             access_time = now.strftime('%H:%M:%S')
             print('Sir, found page: {} at {}'.format(a['href'], current_time))
+            if a.startswith('mailto:') or a.startswith('tel:'):
+                soup.remove(a)
 
         for tag in soup.find_all('meta'):
             now = datetime.now()
@@ -31,5 +33,5 @@ class spider:
                 print('Found meta title: {} at {}'.format(
                     tag.get("content", None), access_time))
             if tag.get("property", None) == "ex:description":
-                print('Sir found description: {} at {}\n'.format(
+                print('Sir, found description: {} at {}\n'.format(
                     tag.get("content", None), access_time))
