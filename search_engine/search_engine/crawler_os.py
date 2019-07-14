@@ -15,20 +15,20 @@ class spider:
 
         if soup.title.string is not None:
             now = datetime.now()
-            current_time = now.strftime('%H:%M:%S')
+            access_time = now.strftime('%H:%M:%S')
             print('Sir, found title: {} at {}'.format(
-                soup.title.string, current_time))
+                soup.title.string, access_time))
 
-        for a in soup.find_all('a', href=True):
+        for link in soup.find_all('a', href=True):
             now = datetime.now()
             access_time = now.strftime('%H:%M:%S')
-            print('Sir, found page: {} at {}'.format(a['href'], current_time))
-            if a.startswith('mailto:') or a.startswith('tel:'):
-                soup.remove(a)
+            print('Sir, found page: {} at {}'.format(a['href'], access_time))
+            if link.startswith('mailto:') or link.startswith('tel:'):
+                soup.remove(link)
 
         for tag in soup.find_all('meta'):
             now = datetime.now()
-            current_time = now.strftime('%H:%M:%S')
+            access_time = now.strftime('%H:%M:%S')
             if tag.get("property", None) == "ex:title":
                 print('Found meta title: {} at {}'.format(
                     tag.get("content", None), access_time))
